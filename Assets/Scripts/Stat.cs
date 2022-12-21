@@ -6,6 +6,19 @@ using UnityEngine;
 [System.Serializable]
 public class Stat
 {
+    [SerializeField] private string name;
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+    }
+
     [SerializeField] private int maxHealth;
     public int MaxHealth{
         get{
@@ -51,6 +64,19 @@ public class Stat
         }
         set{
             startCardInHand = value;
+        }
+    }
+
+    [SerializeField] private int energy;
+    public int Energy
+    {
+        get
+        {
+            return energy;
+        }
+        set
+        {
+            energy = value;
         }
     }
 

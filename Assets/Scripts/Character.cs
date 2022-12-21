@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Character : MonoBehaviour
 {
-    [HideInInspector]
+
     public List<Card> deck = new List<Card>();
     [HideInInspector]
     public List<Card> discardPile = new List<Card>();
@@ -14,8 +14,11 @@ public abstract class Character : MonoBehaviour
 
     public Stat stat;
 
+    public Text nameText;
     public Text currentCharacterHealthText;
     public Text maxCharacterHealthText;
+    public Text strenghtText;
+    public Text energyText;
 
     [HideInInspector]
     public bool isDead = false;
@@ -135,13 +138,14 @@ public abstract class Character : MonoBehaviour
         }
 
         UpdateCall();
-        //Deplace les carte joue dans la discardPile
-        //PlayedCard();
     }
 
     private void UpdateHud()
     {
+        nameText.text = stat.Name;
         currentCharacterHealthText.text = stat.Health.ToString();
         maxCharacterHealthText.text = stat.MaxHealth.ToString();
+        strenghtText.text = stat.Strength.ToString();
+        energyText.text = stat.Energy.ToString();
     }
 }

@@ -33,7 +33,7 @@ public class Enemy : Character
     public void PlayTurn()
     {
         Draw();
-        handPile[0].PlayCard();
+        handPile[0].UseCard();
     }
 
 

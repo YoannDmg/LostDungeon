@@ -94,6 +94,7 @@ public class GameManager : MonoBehaviour
 
         //Set les enemis pour le combat
         int nombreEnemy = Random.Range(1, enemySlots.Count);
+        nombreEnemy = 4;
         while (nombreEnemy > 0)
         {
             enemyInBattle.Add(Instantiate(enemyList[Random.Range(0, enemyList.Count)]));

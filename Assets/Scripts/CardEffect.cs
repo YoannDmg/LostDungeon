@@ -5,11 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class CardEffect
 {
-    //[SerializeField]
-    //public Sprite sprite;
-
     [SerializeField]
-    public GameObject test;
+    public GameObject Effect;
+
 
     [SerializeField] private int damage;
     public int Damage
@@ -23,4 +21,56 @@ public class CardEffect
             damage = value;
         }
     }
+
+    [SerializeField] private int block;
+    public int Block
+    {
+        get
+        {
+            return block;
+        }
+        set
+        {
+            block = value;
+        }
+    }
+
+    [SerializeField] private int heal;
+    public int Heal
+    {
+        get
+        {
+            return heal;
+        }
+        set
+        {
+            heal = value;
+        }
+    }
+
+    [SerializeField] private int energyCost;
+    public int EnergyCost
+    {
+        get
+        {
+            return energyCost;
+        }
+        set
+        {
+            energyCost = value;
+        }
+    }
+    [SerializeField] private int energyGain;
+    public int EnergyGain
+    {
+        get
+        {
+            return energyGain;
+        }
+        set
+        {
+            energyGain = value;
+        }
+    }
+
 }

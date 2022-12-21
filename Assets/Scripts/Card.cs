@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Card : MonoBehaviour
 
     public CardEffect effect;
 
+    public Text energyCostText;
+
+
     private GameManager gm;
 
     private void OnMouseDown()
@@ -23,22 +27,30 @@ public class Card : MonoBehaviour
         //Debug.Log(handIndex);
         if (hasBeenPlayed == false && gm.isPlayerTurn == true)
         {
-            PlayCard();
-        }
-    }
-
-    public void PlayCard()
-    {
-        //Debug.Log(handIndex);
-        if (hasBeenPlayed == false)
-        {
-            StartCoroutine(PlayAnimCard());
+            UseCard();
         }
     }
 
     public void UseCard()
     {
-        gm.target.TakeDamage(10);
+        //Debug.Log(handIndex);
+        if (hasBeenPlayed == false)
+        {
+            StartCoroutine(PlayCard());
+        }
+    }
+
+    private void PlayEffect()
+    {
+        //Deal Damage
+        gm.target.TakeDamage(effect.Damage);
+        //GiveHeal
+        gm.currentTurn.Heal(effect.Heal);
+        //Use Energy
+        gm.currentTurn.stat.Energy -= effect.EnergyCost;
+        //Give Energy
+        gm.currentTurn.stat.Energy += effect.EnergyGain;
+
     }
 
     // Start is called before the first frame update
@@ -48,24 +60,23 @@ public class Card : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void PlayAnimationCard()
     {
-        // Debug.Log("-UpdateCard");
+        transform.position += Vector3.up * 1;
+
+
+        effect.Effect.transform.position = (gm.target.transform.position + Vector3.back * 1);
     }
 
-    IEnumerator PlayAnimCard()
+    IEnumerator PlayCard()
     {
         if (gm.target)
         {
-            transform.position += Vector3.up * 1;
 
-
-            effect.test.transform.position = (gm.target.transform.position + Vector3.back *1);
-            
-
+            PlayAnimationCard();
+            PlayEffect();
             yield return new WaitForSeconds(1f);
-            UseCard();
             hasBeenPlayed = true;
         }
         else 
@@ -74,4 +85,11 @@ public class Card : MonoBehaviour
         }
     }
 
+
+    // Update is called once per frame
+    private void Update()
+    {
+        //Update HUD card
+        energyCostText.text = effect.EnergyCost.ToString();
+    }
 }
