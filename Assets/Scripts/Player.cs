@@ -46,6 +46,10 @@ public class Player : Character
         handPile.Remove(card);
     }
 
+    protected override void StartCall()
+    {
+
+    }
     protected override void UpdateCall()
     {
         if (deck.Count <= 0)

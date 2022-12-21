@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
 
         //Set les enemis pour le combat
         int nombreEnemy = Random.Range(1, enemySlots.Count);
-        nombreEnemy = 4;
+        //nombreEnemy = 4;
         while (nombreEnemy > 0)
         {
             enemyInBattle.Add(Instantiate(enemyList[Random.Range(0, enemyList.Count)]));
@@ -128,15 +128,19 @@ public class GameManager : MonoBehaviour
         //Configure les cartes ennemi
         foreach (Enemy enemy in enemyInBattle)
         {
+
+            enemy.setCards();
+
+            /*
             enemy.deck.Add(Instantiate(lowRarityDeck[Random.Range(0, lowRarityDeck.Count)]));
             //On rend les cartes non visible pour les ennemis
-            SpriteRenderer sprender;
+           // SpriteRenderer sprender;
             foreach (Card card in enemy.deck)
             {
-                sprender = card.gameObject.GetComponent<SpriteRenderer>();
-                sprender.enabled = false;
+                //sprender = card.gameObject.GetComponent<SpriteRenderer>();
+                //sprender.enabled = false;
             }
-
+            */
         }
 
     }

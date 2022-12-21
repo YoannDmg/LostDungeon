@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : Character
 {
+    public List<Card> cardForThisEnemy;
+
     public void Draw()
     {
         if (deck.Count <= 0)
@@ -44,6 +46,30 @@ public class Enemy : Character
         handPile.Remove(card);
     }
 
+    public void setCards()
+    {
+        //Configure les cartes de l enemi
+        SpriteRenderer sprender;
+        Canvas canvas;
+        foreach (Card card in cardForThisEnemy)
+        {
+            deck.Add(Instantiate(card));
+        }
+        //On rend les carte non visible
+        foreach (Card card in deck)
+        {
+            sprender = card.gameObject.GetComponent<SpriteRenderer>();
+            sprender.enabled = false;
+
+            canvas = card.transform.Find("Canvas").gameObject.GetComponent<Canvas>();
+            canvas.enabled = false;
+        }
+    }
+
+    protected override void StartCall()
+    {
+
+    }
 
     protected override void UpdateCall()
     {

@@ -76,8 +76,24 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
+      propertyPath: deck.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
+      propertyPath: deck.Array.data[0]
+      value: 
+      objectReference: {fileID: 7001402640850040367, guid: 7a39b3b8c17f3ef49b67ec9a0e28bbf8, type: 3}
+    - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
       propertyPath: stat.startCardInHand
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
+      propertyPath: cardForThisEnemy.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
+      propertyPath: cardForThisEnemy.Array.data[0]
+      value: 
+      objectReference: {fileID: 7001402640850040367, guid: 7a39b3b8c17f3ef49b67ec9a0e28bbf8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}

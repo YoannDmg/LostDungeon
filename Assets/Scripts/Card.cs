@@ -6,17 +6,19 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    
+
     //Indique si la carte a ete joue
+    [HideInInspector]
     public bool hasBeenPlayed;
 
     //Position de la carte dans la main
+    [HideInInspector]
     public int handIndex;
-
-    public int test;
 
     public CardEffect effect;
 
+    public Text nameText;
+    public Text descriptionText;
     public Text energyCostText;
 
 
@@ -24,7 +26,8 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //Debug.Log(handIndex);
+        Debug.Log("OnMouseDown");
+        Debug.Log(handIndex);
         if (hasBeenPlayed == false && gm.isPlayerTurn == true)
         {
             UseCard();
@@ -65,7 +68,7 @@ public class Card : MonoBehaviour
     {
         transform.position += Vector3.up * 1;
 
-
+        effect.Effect.gameObject.SetActive(true);
         effect.Effect.transform.position = (gm.target.transform.position + Vector3.back * 1);
     }
 
@@ -77,7 +80,10 @@ public class Card : MonoBehaviour
             PlayAnimationCard();
             PlayEffect();
             yield return new WaitForSeconds(1f);
+            effect.Effect.gameObject.SetActive(false);
             hasBeenPlayed = true;
+
+
         }
         else 
         {
@@ -90,6 +96,8 @@ public class Card : MonoBehaviour
     private void Update()
     {
         //Update HUD card
+        nameText.text = effect.Name;
+        descriptionText.text = effect.Description;
         energyCostText.text = effect.EnergyCost.ToString();
     }
 }

@@ -5,8 +5,36 @@ using UnityEngine;
 [System.Serializable]
 public class CardEffect
 {
+
+    [SerializeField] private string name;
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+    }
+
+    [SerializeField] private string description;
+    public string Description
+    {
+        get
+        {
+            return description;
+        }
+        set
+        {
+            description = value;
+        }
+    }
+
     [SerializeField]
     public GameObject Effect;
+
 
 
     [SerializeField] private int damage;

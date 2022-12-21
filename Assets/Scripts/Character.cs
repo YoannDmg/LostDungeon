@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Character : MonoBehaviour
 {
-
+    [HideInInspector]
     public List<Card> deck = new List<Card>();
     [HideInInspector]
     public List<Card> discardPile = new List<Card>();
@@ -14,6 +14,7 @@ public abstract class Character : MonoBehaviour
 
     public Stat stat;
 
+    //HUD
     public Text nameText;
     public Text currentCharacterHealthText;
     public Text maxCharacterHealthText;
@@ -26,6 +27,7 @@ public abstract class Character : MonoBehaviour
     protected GameManager gm;
 
     /************Virtual function ****************/
+    protected abstract void StartCall();
     protected abstract void UpdateCall();
     protected abstract void MoveToDiscardPile(Card card);
 
@@ -123,6 +125,7 @@ public abstract class Character : MonoBehaviour
     void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        StartCall();
     }
 
 
