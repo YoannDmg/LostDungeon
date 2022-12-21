@@ -37,8 +37,8 @@ public class Hud : MonoBehaviour
         maxPlayerHealthText.text = gm.player.stat.MaxHealth.ToString();
 
         /*** Enemy HUD ***/
-        currentEnemyHealthText.text = gm.currentEnemy.stat.Health.ToString();
-        maxEnemyHealthText.text = gm.currentEnemy.stat.MaxHealth.ToString();
+        //currentEnemyHealthText.text = gm.currentEnemy.stat.Health.ToString();
+        //maxEnemyHealthText.text = gm.currentEnemy.stat.MaxHealth.ToString();
 
     }
 }

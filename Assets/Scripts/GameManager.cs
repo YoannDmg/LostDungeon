@@ -7,68 +7,103 @@ public class GameManager : MonoBehaviour
 {
     //Variable public:
     [Header("Le joueur")]
-    public Character player = new Character();
+    public Player player;
+
+    [Header("Position du joueur")]
+    public PositionSlot playerPosition;
 
     [Header("Liste de tout les ennemis disponible")]
-    public List<Character> enemyList = new List<Character>();
-    
-    [Header("Liste de toutes les cartes de faible rarite")]
-    public List<Card> lowRarityDeck = new List<Card>();
-
-    [Header("Liste des positions des slots de cartes du joueur")]
-    public List<PositionSlot> cardSlots = new List<PositionSlot>();
+    public List<Enemy> enemyList;
 
     [Header("Liste des positions des slots des enemies")]
-    public List<PositionSlot> enemySlots = new List<PositionSlot>();
+    public List<PositionSlot> enemySlots;
 
-    [Header("Ennemi en cours")]
-    public Character currentEnemy = new Character();
+    [Header("Liste de toutes les cartes de faible rarite")]
+    public List<Card> lowRarityDeck;
 
-    //Variable private:
-    [Header("Liste des ennemis dans le combat")]
-    private List<Character> enemyInBattle = new List<Character>();
+    [Header("Liste des positions des slots de cartes du joueur")]
+    public List<PositionSlot> cardSlots;
+
+    [Header("Tour en cours")]
+    [HideInInspector]
+    public Character currentTurn;
 
     [Header("Character cible")]
-    public Character target = new Character();
-    //private bool isPlayerTurn = true;
+    [HideInInspector]
+    public Character target;
+    
+    [HideInInspector]
+    public bool isPlayerTurn;
+
+    //Variable prive:
+    [Header("Liste des ennemis dans le combat")]
+    private List<Enemy> enemyInBattle = new List<Enemy>();
+
+    private bool firstTurn = true; 
 
     public void ChangeTurn()
     {
-        player.isPlayerTurn = !player.isPlayerTurn;
-
-        if (player.isPlayerTurn)
+        isPlayerTurn = !isPlayerTurn;
+        if (isPlayerTurn)
         {
-            target = currentEnemy;
+            currentTurn = player;
+            target = enemyInBattle[0];
+
+            //Set le premier enemy vivant en target
+            foreach (Enemy enemy in enemyInBattle)
+            {
+                if (enemy.isDead == false)
+                {
+                    target = enemy;
+                    break;
+                }
+            }
+            //Distribution des carte au joeur en debut de tour
             for (int i = 0; i < player.stat.StartCardInHand; i++)
             {
                 player.Draw();
             }
         }
         else
-        { 
-            
+        {
             player.MoveHandToDiscardPile();
             target = player;
-
-            ChangeTurn(); 
+            StartCoroutine(PlayEnemyTurn());
         }
-
     }
 
-    private void SetEnemy()
+    IEnumerator PlayEnemyTurn()
     {
+        if (target)
+        {
+            // les enemis joue leurs cartes
+            foreach (Enemy enemy in enemyInBattle)
+            {
+                currentTurn = enemy;
+                enemy.PlayTurn();
+                yield return new WaitForSeconds(1f);
+            }
+            ChangeTurn();
+        }
+    }
+
+
+    private void SetCharacter()
+    {
+        player.transform.position = playerPosition.transform.position;
+
         //Set les enemis pour le combat
         int nombreEnemy = Random.Range(1, enemySlots.Count);
-        while (nombreEnemy >= 0)
+        while (nombreEnemy > 0)
         {
             enemyInBattle.Add(Instantiate(enemyList[Random.Range(0, enemyList.Count)]));
             nombreEnemy--;
         }
 
-        //Set les enemi sur une position
+        //Set les enemis sur une position
         if (enemyInBattle.Count >= 1)
         {
-            foreach (Character enemy in enemyInBattle)
+            foreach (Enemy enemy in enemyInBattle)
             {
                 for (int i = 0; i < enemySlots.Count; i++)
                 {
@@ -82,22 +117,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Debug.Log("Start");
-
-        //Configure un enemi a combattre
-        currentEnemy = enemyList[Random.Range(0, enemyList.Count)];
-
-        //Set l'enemi cible
-        //target = currentEnemy;
-
-        //Configure les enemy pour le combat
-        SetEnemy();
-
 
         //Add card to player
         foreach (Card card in lowRarityDeck)
@@ -105,19 +124,39 @@ public class GameManager : MonoBehaviour
             player.deck.Add(Instantiate(card));
         }
 
-        //Add card to Enemy -> les cartes seront set dans le prefab
-        foreach (Card card in lowRarityDeck)
+        //Configure les cartes ennemi
+        foreach (Enemy enemy in enemyInBattle)
         {
-            currentEnemy.deck.Add(Instantiate(card));
+            enemy.deck.Add(Instantiate(lowRarityDeck[Random.Range(0, lowRarityDeck.Count)]));
+            //On rend les cartes non visible pour les ennemis
+            SpriteRenderer sprender;
+            foreach (Card card in enemy.deck)
+            {
+                sprender = card.gameObject.GetComponent<SpriteRenderer>();
+                sprender.enabled = false;
+            }
+
         }
 
-        // On debute le tour avec le joueur -> gameObject non instancie a cet instant
-        //ChangeTurn();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        Debug.Log("Start");
+        //Configure les entite du combat
+        SetCharacter(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (firstTurn == true && player)
+        {
+            firstTurn = false;
+            isPlayerTurn = false;
+            ChangeTurn();
+        }
+
     }
 }
