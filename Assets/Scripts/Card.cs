@@ -59,9 +59,10 @@ public class Card : MonoBehaviour
         if (gm.target)
         {
             transform.position += Vector3.up * 1;
-            //Play animation here
-            effect.test.transform.position = gm.target.transform.position;
-            //randCard.transform.position = gm.cardSlots[i].transform.position;
+
+
+            effect.test.transform.position = (gm.target.transform.position + Vector3.back *1);
+            
 
             yield return new WaitForSeconds(1f);
             UseCard();
