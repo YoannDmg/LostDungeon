@@ -23,6 +23,7 @@ public abstract class Character : MonoBehaviour
     public Text maxCharacterHealthText;
     public Text strenghtText;
     public Text energyText;
+    public Text armorText;
 
     [HideInInspector]
     public bool isDead = false;
@@ -108,8 +109,33 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    public void GiveArmor(int armor)
+    {
+        int armorAfterGain = stat.Armor + armor;
+        SetArmorTo(armorAfterGain);
+    }
+    private void SetArmorTo(int armor)
+    {
+        stat.Armor = armor;
+    }
+
+    private int TakeDamageToArmor(int damage)
+    {
+        int armorAfterDamage = stat.Armor - damage;
+        int damageAfterReduction = damage - stat.Armor;
+
+        SetArmorTo(armorAfterDamage);
+        if (damageAfterReduction <= 0)
+        {
+            damageAfterReduction = 0;
+        }
+        return damageAfterReduction;
+    }
+
     public void TakeDamage(int damage)
     {
+        damage = TakeDamageToArmor(damage);
+
         int healthAfterDamage = stat.Health - damage;
         SetHealthTo(healthAfterDamage);
     }
@@ -154,5 +180,6 @@ public abstract class Character : MonoBehaviour
         maxCharacterHealthText.text = stat.MaxHealth.ToString();
         strenghtText.text = stat.Strength.ToString();
         energyText.text = currentEnergy.ToString();
+        armorText.text = stat.Armor.ToString();
     }
 }

@@ -50,6 +50,8 @@ public class Card : MonoBehaviour
 
     private void PlayEffect()
     {
+        //GiveArmor
+        gm.currentTurn.GiveArmor(effect.Block);
         //Deal Damage
         gm.target.TakeDamage(effect.Damage);
         //GiveHeal

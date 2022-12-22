@@ -80,4 +80,24 @@ public class Stat
         }
     }
 
+    [SerializeField] private int armor;
+    public int Armor
+    {
+        get
+        {
+            return armor;
+        }
+        set
+        {
+            if (value <= 0)
+            {
+                armor = 0;
+            }
+            else
+            {
+                armor = value;
+            }
+        }
+    }
+
 }

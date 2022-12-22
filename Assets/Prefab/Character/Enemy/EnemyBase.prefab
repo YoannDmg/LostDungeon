@@ -117,6 +117,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &310960093860308859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6988588617111800917, guid: 4e3c59f2800b7464285e57e9ee0b7f8e, type: 3}
+  m_PrefabInstance: {fileID: 7254371970623744814}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7643902735980388363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,10 +149,14 @@ MonoBehaviour:
     health: 0
     strength: 0
     startCardInHand: 0
-    energy: 0
+    maxEnergy: 0
+    armor: 0
+  currentEnergy: 0
   nameText: {fileID: 2889498090999059049}
   currentCharacterHealthText: {fileID: 7904300391543483230}
   maxCharacterHealthText: {fileID: 3673021994402136159}
   strenghtText: {fileID: 3673531030309918462}
   energyText: {fileID: 9017520675543768148}
+  armorText: {fileID: 310960093860308859}
   isDead: 0
+  cardForThisEnemy: []
