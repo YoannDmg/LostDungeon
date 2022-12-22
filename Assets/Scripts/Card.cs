@@ -26,8 +26,6 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("OnMouseDown");
-        Debug.Log(handIndex);
         if (hasBeenPlayed == false && gm.isPlayerTurn == true)
         {
             UseCard();
@@ -36,11 +34,18 @@ public class Card : MonoBehaviour
 
     public void UseCard()
     {
-        //Debug.Log(handIndex);
-        if (hasBeenPlayed == false)
+        if ((gm.currentTurn.currentEnergy - effect.EnergyCost) >= 0)
         {
-            StartCoroutine(PlayCard());
+            if (hasBeenPlayed == false)
+            {
+                StartCoroutine(PlayCard());
+            }
         }
+        else 
+        {
+            print("Not enough energy");
+        }
+
     }
 
     private void PlayEffect()
@@ -50,9 +55,9 @@ public class Card : MonoBehaviour
         //GiveHeal
         gm.currentTurn.Heal(effect.Heal);
         //Use Energy
-        gm.currentTurn.stat.Energy -= effect.EnergyCost;
+        gm.currentTurn.currentEnergy -= effect.EnergyCost;
         //Give Energy
-        gm.currentTurn.stat.Energy += effect.EnergyGain;
+        gm.currentTurn.currentEnergy += effect.EnergyGain;
 
     }
 

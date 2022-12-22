@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Player : Character
 {
+
+    public void StartTurn()
+    {
+        currentEnergy = stat.MaxEnergy;
+    }
+
     public void Draw()
     {
         if (gm.isPlayerTurn == true)

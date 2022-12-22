@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
             currentTurn = player;
             target = enemyInBattle[0];
 
+            player.StartTurn();
+
             //Set le premier enemy vivant en target
             foreach (Enemy enemy in enemyInBattle)
             {
@@ -79,9 +81,13 @@ public class GameManager : MonoBehaviour
             // les enemis joue leurs cartes
             foreach (Enemy enemy in enemyInBattle)
             {
-                currentTurn = enemy;
-                enemy.PlayTurn();
-                yield return new WaitForSeconds(1f);
+                if (enemy.isDead == false)
+                {
+                    currentTurn = enemy;
+                    enemy.PlayTurn();
+                    yield return new WaitForSeconds(1f);
+                }
+
             }
             ChangeTurn();
         }
@@ -119,7 +125,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        //Add card to player
+        //Configure les cartes du joueur
         foreach (Card card in lowRarityDeck)
         {
             player.deck.Add(Instantiate(card));
@@ -128,19 +134,7 @@ public class GameManager : MonoBehaviour
         //Configure les cartes ennemi
         foreach (Enemy enemy in enemyInBattle)
         {
-
             enemy.setCards();
-
-            /*
-            enemy.deck.Add(Instantiate(lowRarityDeck[Random.Range(0, lowRarityDeck.Count)]));
-            //On rend les cartes non visible pour les ennemis
-           // SpriteRenderer sprender;
-            foreach (Card card in enemy.deck)
-            {
-                //sprender = card.gameObject.GetComponent<SpriteRenderer>();
-                //sprender.enabled = false;
-            }
-            */
         }
 
     }
@@ -148,7 +142,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Start");
         //Configure les entite du combat
         SetCharacter(); 
     }

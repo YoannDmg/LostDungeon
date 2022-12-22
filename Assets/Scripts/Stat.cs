@@ -67,18 +67,17 @@ public class Stat
         }
     }
 
-    [SerializeField] private int energy;
-    public int Energy
+    [SerializeField] private int maxEnergy;
+    public int MaxEnergy
     {
         get
         {
-            return energy;
+            return maxEnergy;
         }
         set
         {
-            energy = value;
+            maxEnergy = value;
         }
     }
-
 
 }

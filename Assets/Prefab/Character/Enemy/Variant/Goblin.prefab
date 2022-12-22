@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
       propertyPath: stat.energy
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
       propertyPath: stat.health
@@ -70,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
       propertyPath: stat.strength
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
+      propertyPath: stat.maxEnergy
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7643902735980388363, guid: 628e9785a9050bf49ba42157f0f364d6, type: 3}
       propertyPath: stat.maxHealth

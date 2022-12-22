@@ -34,8 +34,10 @@ public class Enemy : Character
 
     public void PlayTurn()
     {
+        currentEnergy = stat.MaxEnergy;
         Draw();
         handPile[0].UseCard();
+
     }
 
 

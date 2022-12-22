@@ -14,6 +14,9 @@ public abstract class Character : MonoBehaviour
 
     public Stat stat;
 
+    [HideInInspector]
+    public int currentEnergy;
+
     //HUD
     public Text nameText;
     public Text currentCharacterHealthText;
@@ -125,6 +128,7 @@ public abstract class Character : MonoBehaviour
     void Start()
     {
         gm = FindObjectOfType<GameManager>();
+        currentEnergy = stat.MaxEnergy;
         StartCall();
     }
 
@@ -149,6 +153,6 @@ public abstract class Character : MonoBehaviour
         currentCharacterHealthText.text = stat.Health.ToString();
         maxCharacterHealthText.text = stat.MaxHealth.ToString();
         strenghtText.text = stat.Strength.ToString();
-        energyText.text = stat.Energy.ToString();
+        energyText.text = currentEnergy.ToString();
     }
 }
